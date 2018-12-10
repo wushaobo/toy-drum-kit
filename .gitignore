@@ -1,0 +1,7 @@
+venv
+.idea
+output
+lib
+__pycache__
+.DS_Store
+*.mid
