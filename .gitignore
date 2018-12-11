@@ -1,7 +1,9 @@
-venv
-.idea
-output
-lib
-__pycache__
 .DS_Store
+.idea
+
+server/venv
+server/output
+server/lib
+__pycache__
 *.mid
+
