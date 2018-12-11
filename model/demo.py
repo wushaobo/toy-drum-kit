@@ -2,14 +2,14 @@ import random
 
 import magenta.music as mm
 from magenta.models.drums_rnn import drums_rnn_sequence_generator
-
 from magenta.protobuf import music_pb2, generator_pb2
 
 pitch_collection = [
     36,         # C - Bass Drum 1
     40,         # E - Electric Snare
     41,         # F - Low Floor Tom
-    44,         # G#- Pedal Hi-Hat
+    42,         # Gb3/F#3 - Closed Hi-Hat
+    46,         # Bb3/A#3 - Open Hi-Hat
     48,         # c - Hi-Mid Tom
     50,         # d - High Tom
     51,         # eb- Ride Cymbal 1
@@ -48,7 +48,7 @@ def build_note_sequence():
 def generate_sequence(input_sequence):
     rnn_model = _init_generator()
 
-    num_steps = 120  # change this for shorter or longer sequences
+    num_steps = 20  # change this for shorter or longer sequences
     temperature = 1.2  # the higher the temperature the more random the sequence.
 
     generator_options = generator_pb2.GeneratorOptions()
@@ -61,17 +61,18 @@ def generate_sequence(input_sequence):
     generation_seconds = num_steps * seconds_per_step
 
     generator_options.generate_sections.add(start_time=start_time, end_time=start_time+generation_seconds)
+
     sequence = rnn_model.generate(input_sequence, generator_options)
 
     return sequence
 
 
 def _init_generator():
-    bundle = mm.sequence_generator_bundle.read_bundle_file('./lib/drum_kit_rnn.mag')
+    bundle_file = mm.sequence_generator_bundle.read_bundle_file('./lib/drum_kit_rnn.mag')
     generator_map = drums_rnn_sequence_generator.get_generator_map()
-    rnn_model = generator_map['drum_kit'](checkpoint=None, bundle=bundle)
+    generator = generator_map['drum_kit'](bundle=bundle_file)
 
-    return rnn_model
+    return generator
 
 
 random_sequence = build_note_sequence()
