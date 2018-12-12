@@ -38,7 +38,7 @@ class DrumButton extends Component {
 
     click(e) {
         console.log("click", this.drum.key);
-        this.props.sound.hit(this.drum.key)
+        this.props.onDrumHit(this.drum.key)
     }
 
     render() {

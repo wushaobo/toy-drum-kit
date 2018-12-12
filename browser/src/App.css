@@ -33,7 +33,6 @@
     cursor: pointer;
     outline: none;
 
-    border: 2px solid transparent;
     border-radius: 100px / 50px;
 }
 
@@ -44,4 +43,10 @@
 .lane .drum-button.active {
     background-color: #00DDDD;
     border-color: #00FFFF;
+    color: white;
+}
+
+.lane canvas {
+    width: 100%;
+    height: calc(100% - 35px);
 }
