@@ -6,6 +6,7 @@ class DrumButton extends Component {
     constructor(props) {
         super(props);
         this.drum = props.drum;
+        this.onDrumHit = props.onDrumHit;
 
         this.touchStart = this.touchStart.bind(this);
         this.touchEnd = this.touchEnd.bind(this);
@@ -38,7 +39,7 @@ class DrumButton extends Component {
 
     click(e) {
         console.log("click", this.drum.key);
-        this.props.onDrumHit(this.drum.key)
+        this.onDrumHit(this.drum.key)
     }
 
     render() {
