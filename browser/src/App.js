@@ -1,28 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
+import Lane from "./components/Lane";
+import drumList from "./model";
+import Sound from "./sound";
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    constructor(props) {
+        super(props);
+
+        this._drums = drumList()
+        this._sound = new Sound()
+    }
+
+    componentDidMount() {
+        this._sound.load()
+    }
+
+    render() {
+        return (
+            <div className="app">
+                <div className="playground">
+                    {
+                        this._drums.map((drum, i) => {
+                            return <Lane key={i} drum={drum} sound={this._sound}/>;
+                        })
+                    }
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;

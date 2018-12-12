@@ -5,15 +5,15 @@ from magenta.models.drums_rnn import drums_rnn_sequence_generator
 from magenta.protobuf import music_pb2, generator_pb2
 
 pitch_collection = [
-    36,         # C - Bass Drum 1
-    40,         # E - Electric Snare
-    41,         # F - Low Floor Tom
+    36,         # C3 - Bass Drum 1
+    40,         # E3 - Electric Snare
+    41,         # F3 - Low Floor Tom
     42,         # Gb3/F#3 - Closed Hi-Hat
     46,         # Bb3/A#3 - Open Hi-Hat
-    48,         # c - Hi-Mid Tom
-    50,         # d - High Tom
-    51,         # eb- Ride Cymbal 1
-    57          # a - Crash Cymbal 2
+    48,         # C4 - Hi-Mid Tom
+    50,         # D4 - High Tom
+    51,         # Eb4/D#4 - Ride Cymbal 1
+    57,         # A4 - Crash Cymbal 2
 ]
 
 
