@@ -12,7 +12,7 @@ class Sound {
             drumList().forEach((drum) =>{
                 let player = this._players.get(drum.key);
                 if (!player.loaded) {
-                    console.log(drum.key, drum.audioFileName)
+                    alert(`Failed to load the player source: ${drum.key} ${drum.audioFileName}`)
                 }
             })
 		})

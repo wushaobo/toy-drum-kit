@@ -4,6 +4,8 @@ import './App.css';
 import Lane from "./components/Lane";
 import drumList from "./model";
 import Sound from "./sound";
+import AutoBot from "./autoBot";
+import Visualization from "./visualization";
 
 class App extends Component {
 
@@ -12,6 +14,8 @@ class App extends Component {
 
         this._drums = drumList()
         this._sound = new Sound()
+        this._visualization = new Visualization()
+        this._autoBot = new AutoBot(this._sound, this._visualization)
     }
 
     componentDidMount() {
@@ -24,7 +28,9 @@ class App extends Component {
                 <div className="playground">
                     {
                         this._drums.map((drum, i) => {
-                            return <Lane key={i} drum={drum} sound={this._sound}/>;
+                            return <Lane key={i} drum={drum} sound={this._sound}
+                                         visualization={this._visualization}
+                                         autoBot={this._autoBot}/>;
                         })
                     }
                 </div>

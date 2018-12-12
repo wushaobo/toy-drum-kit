@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import DrumButton from "./DrumButton";
-import Visualization from "../visualization";
+import Tone from "tone";
 
 
 class Lane extends Component {
@@ -9,12 +9,18 @@ class Lane extends Component {
         super(props);
 
         this.drumHit = this.drumHit.bind(this)
-        this._visualization = new Visualization()
     }
 
     drumHit(note) {
         this.props.sound.hit(note)
-        this._visualization.visualizeHit(note)
+        this.props.visualization.visualizeHit(note, '#00FFFF')
+        this._recordInput(note);
+    }
+
+    _recordInput(note) {
+        const time = Tone.now()
+        this.props.autoBot.startRecording(note, time)
+        this.props.autoBot.pauseRecording(note, time + 2)
     }
 
     render() {

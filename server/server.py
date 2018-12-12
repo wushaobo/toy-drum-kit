@@ -14,7 +14,7 @@ from tornado.web import Application, RequestHandler
 def _generate_sequence(input_sequence):
     rnn_model = _init_generator()
 
-    num_steps = 120  # change this for shorter or longer sequences
+    num_steps = 60  # change this for shorter or longer sequences
     temperature = 1.2  # the higher the temperature the more random the sequence.
 
     generator_options = _generator_options(input_sequence, num_steps, rnn_model, temperature)
@@ -55,7 +55,18 @@ def generate_midi(input_midi):
     return output
 
 
-class PingHandler(RequestHandler):
+class BaseHandler(RequestHandler):
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+
+    def options(self):
+        self.set_status(204)
+        self.finish()
+
+
+class PingHandler(BaseHandler):
 
     def post(self):
         body = tornado.escape.json_decode(self.request.body)

@@ -1,19 +1,21 @@
 class Visualization {
 
     constructor() {
-        this._canvasShapes = []
+        this._canvasShapesMap = {}
     }
 
-    _drawAll(context) {
-        this._canvasShapes.forEach(rectangle => {
+    _drawAll(context, shapes) {
+        shapes.forEach(rectangle => {
             context.beginPath();
             context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-            context.fillStyle = '#00FFFF';
+            context.fillStyle = rectangle.color;
             context.fill();
+            context.strokeStyle = 'white';
+            context.stroke();
         });
     }
 
-    _updateAllShapePos(canvas, shapes) {
+    _updateCanvasShapesPos(canvas, shapes) {
         let retShapes = [];
 
         shapes.forEach(shape => {
@@ -29,37 +31,44 @@ class Visualization {
         return retShapes;
     }
 
-    _animate(canvas, context) {
-        this._drawAll(context);
+    _animate(canvas, context, note) {
+        let shapes = this._canvasShapesMap[note];
+        this._drawAll(context, shapes);
 
-        this._canvasShapes = this._updateAllShapePos(canvas, this._canvasShapes);
+        shapes = this._updateCanvasShapesPos(canvas, shapes);
+        this._canvasShapesMap[note] = shapes;
 
-        if (this._canvasShapes.length !== 0) {
+        if (shapes.length !== 0) {
             requestAnimationFrame(() => {
                 context.clearRect(0, 0, canvas.width, canvas.height);
-                this._animate(canvas, context)
+                this._animate(canvas, context, note)
             })
         } else {
             context.clearRect(0, 0, canvas.width, canvas.height);
         }
     }
 
-    _initShape(canvas, shapeHeight) {
+    _initShape(canvas, shapeHeight, color) {
         return {
             x: 0,
             y: canvas.height - shapeHeight,
             width: canvas.width,
             height: shapeHeight,
-            startTime: (new Date()).getTime()
+            startTime: (new Date()).getTime(),
+            color: color
         };
     }
 
-    visualizeHit(note, shapeHeight = 10) {
+    visualizeHit(note, color, shapeHeight = 10) {
+        if (!this._canvasShapesMap[note]) {
+            this._canvasShapesMap[note] = []
+        }
+
         const canvas = document.getElementById(`canvas-${note}`);
         const context = canvas.getContext('2d');
 
-        this._canvasShapes.push(this._initShape(canvas, shapeHeight));
-        this._animate(canvas, context);
+        this._canvasShapesMap[note].push(this._initShape(canvas, shapeHeight, color));
+        this._animate(canvas, context, note);
     }
 }
 
