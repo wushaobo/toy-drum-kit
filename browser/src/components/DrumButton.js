@@ -8,20 +8,36 @@ class DrumButton extends Component {
         this.drum = props.drum;
         this.onDrumHit = props.onDrumHit;
 
-        this.click = this.click.bind(this);
-
-        this.state = {active: false};
+        this.strike = this.strike.bind(this);
     }
 
+    componentDidMount() {
+        window.addEventListener('keypress', this._playSound());
+    }
 
-    click() {
-        this.onDrumHit(this.drum.key)
+    _playSound() {
+        const hotKey = this.drum.hotKey;
+
+        return (event) => {
+            const code = String.fromCharCode(event.keyCode);
+
+            if (code.toUpperCase() !== hotKey.toUpperCase()) {
+                return
+            }
+
+            this.strike()
+        }
+    }
+
+    strike() {
+        this.onDrumHit(this.drum.key);
     }
 
     render() {
         return (
-            <div className={`drum-button ${this.state.active ? "active" : ""}`} onClick={this.click}>
-                <span>{this.drum.drumSound}</span>
+            <div className='drum-button' onClick={this.strike}>
+                <div>{this.drum.drumSound}</div>
+                <div className='hot-key'>{this.drum.hotKey}</div>
             </div>
         );
     }

@@ -36,14 +36,16 @@
     border-radius: 100px / 50px;
 }
 
-.lane .drum-button:hover {
-    background-color: whitesmoke;
+.lane .drum-button .hot-key {
+    position: absolute;
+    bottom: -22px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
 }
 
-.lane .drum-button.active {
-    background-color: #00DDDD;
-    border-color: #00FFFF;
-    color: white;
+.lane .drum-button:hover {
+    background-color: whitesmoke;
 }
 
 .lane canvas {
