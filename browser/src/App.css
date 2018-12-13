@@ -1,6 +1,7 @@
 .app {
     background-color: black;
     height: 100vh;
+    overflow: hidden;
 
     text-align: center;
     user-select: none;
