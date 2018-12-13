@@ -2,7 +2,7 @@ import * as MidiConvert from 'midiconvert'
 import Tone from "tone";
 
 
-const acceptedNotes = [36, 40, 41, 42, 46, 48, 50, 51, 57];
+const ACCEPTED_NOTES = [36, 40, 42, 45, 46, 48, 50, 51, 57];
 
 class AutoBot {
 
@@ -50,18 +50,31 @@ class AutoBot {
         this._lastPhrase = -1
 	}
 
+	_accepted_note(note) {
+        // migrate unsupported sound to most similar sound
+        const mappedValue = {38: 40, 41: 45, 49: 57}[note.midi];
+        if (mappedValue) {
+            note.midi = mappedValue
+        }
+
+        let ret = ACCEPTED_NOTES.includes(note.midi);
+	    if (!ret) {
+	        console.log("unaccepted midi:", note.midi)
+        }
+        return ret
+    }
+
     _perform(note) {
         const now = Tone.now() + 0.05
 
-        const noteMidi = note.midi;
-        if (acceptedNotes.includes(noteMidi)) {
-            this._sound.start(noteMidi, note.noteOn + now)
+        if (this._accepted_note(note)) {
+            this._sound.start(note.midi, note.noteOn + now)
             note.duration = note.duration * 0.9
             note.duration = Math.min(note.duration, 4)
-            this._sound.stop(noteMidi, note.noteOff + now)
+            this._sound.stop(note.midi, note.noteOff + now)
 
             setTimeout(() => {
-                this._visualization.visualizeHit(noteMidi, '#FFB729')
+                this._visualization.visualizeHit(note.midi, '#FFB729')
             }, note.noteOn * 1000);
         }
     }

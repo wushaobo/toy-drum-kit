@@ -2,9 +2,9 @@ const drumList = () => {
     return [
         new Drum(36, "C2", "Bass Drum", "bass", 'A'),
         new Drum(40, "E2", "Electric Snare", "snare", 'S'),
-        new Drum(41, "F2", "Low Floor Tom", "tom-low", 'D'),
-        new Drum(42, "F#2", "Closed Hi-Hat", "hihat-closed", 'F'),
-        new Drum(46, "A#2", "Open Hi-Hat", "hihat-open", 'G'),
+        new Drum(42, "F#2", "Closed Hi-Hat", "hihat-closed", 'D'),
+        new Drum(46, "A#2", "Open Hi-Hat", "hihat-open", 'F'),
+        new Drum(45, "A2", "Low Tom", "tom-low", 'G'),
         new Drum(48, "C3", "Hi-Mid Tom", "tom-mid", 'H'),
         new Drum(50, "D3", "High Tom", "tom-high", 'J'),
         new Drum(51, "D#3", "Ride Cymbal 1", "ride", 'K'),
