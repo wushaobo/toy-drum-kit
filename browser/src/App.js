@@ -34,6 +34,10 @@ class App extends Component {
                         })
                     }
                 </div>
+                <div className="not-playable">
+                    <div className="rotate-to-landscape" />
+                    Your screen is not wide enough.
+                </div>
             </div>
         );
     }

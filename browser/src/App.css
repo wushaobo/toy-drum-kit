@@ -1,5 +1,13 @@
+@media screen and (max-width: 567px) {
+    .app .playground {
+        display: none !important;
+    }
+    .app .not-playable {
+        display: block !important;
+    }
+}
+
 .app {
-    background-color: black;
     height: 100vh;
     overflow: hidden;
 
@@ -7,11 +15,29 @@
     user-select: none;
 }
 
+.app .not-playable {
+    background-color: white;
+    display: none;
+    color: black;
+
+    position: absolute;
+    top: calc(50% - 140px);
+    width: 100%;
+}
+
+.not-playable .rotate-to-landscape {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    background: url("/image/rotate-to-landscape.png");
+}
+
 .app .playground {
     display: flex;
     justify-content: space-evenly;
     height: 100%;
     margin: auto;
+    background-color: black;
 }
 
 .playground .lane {
@@ -28,7 +54,6 @@
     height: 70px;
     line-height: 70px;
     font-size: 14px;
-    color: black;
 
     background-color: #F0F0F0;
     cursor: pointer;
@@ -59,6 +84,7 @@
     height: 70px;
     border-radius: 50%;
     background-color: #F0F0F0;
+    color: black;
 }
 
 .drum-button.highlight .background {
