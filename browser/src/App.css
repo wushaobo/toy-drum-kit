@@ -34,6 +34,13 @@
     outline: none;
 
     border-radius: 100px / 50px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+    .lane .drum-button:hover {
+        background-color: whitesmoke;
+    }
 }
 
 .lane .drum-button .hot-key {
@@ -42,10 +49,6 @@
     width: 100%;
     text-align: center;
     font-weight: bold;
-}
-
-.lane .drum-button:hover {
-    background-color: whitesmoke;
 }
 
 .lane canvas {
