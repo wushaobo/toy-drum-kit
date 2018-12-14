@@ -21,7 +21,7 @@ class Visualization {
         shapes.forEach(shape => {
             const time = (new Date()).getTime() - shape.startTime;
             const linearSpeed = 30;
-            const newY = (canvas.height - shape.height) - linearSpeed * time / 1000;
+            const newY = shape.initialY - linearSpeed * time / 1000;
             if (newY > -shape.height) {
                 shape.y = newY;
                 retShapes.push(shape)
@@ -49,9 +49,12 @@ class Visualization {
     }
 
     _initShape(canvas, shapeHeight, color) {
+        const initialY = canvas.height - shapeHeight * 2;
+
         return {
             x: 0,
-            y: canvas.height - shapeHeight,
+            y: initialY,
+            initialY: initialY,
             width: canvas.width,
             height: shapeHeight,
             startTime: (new Date()).getTime(),
@@ -59,7 +62,7 @@ class Visualization {
         };
     }
 
-    visualizeHit(note, color, shapeHeight = 4) {
+    visualizeHit(note, color, shapeHeight = 6) {
         if (!this._canvasShapesMap[note]) {
             this._canvasShapesMap[note] = []
         }
