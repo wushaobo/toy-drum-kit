@@ -28,8 +28,9 @@
     height: 70px;
     line-height: 70px;
     font-size: 14px;
+    color: black;
 
-    background-color: darkgray;
+    background-color: #F0F0F0;
     cursor: pointer;
     outline: none;
 
@@ -38,17 +39,44 @@
 }
 
 @media (hover: hover) {
-    .lane .drum-button:hover {
-        background-color: whitesmoke;
+    .drum-button:hover .background {
+        background-color: white;
+    }
+
+    .drum-button .background .hot-key {
+        position: absolute;
+        bottom: -22px;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
     }
 }
 
-.lane .drum-button .hot-key {
-    position: absolute;
-    bottom: -22px;
+.drum-button .background {
+    position: relative;
+
     width: 100%;
-    text-align: center;
-    font-weight: bold;
+    height: 70px;
+    border-radius: 100px / 50px;
+    background-color: #F0F0F0;
+}
+
+.drum-button.highlight .background {
+	animation: strike-effect 0.3s ease-out forwards;
+}
+
+@keyframes strike-effect {
+	0% {
+		background: rgba(0, 255, 255, 1);
+		transform: scale3d(0.9, 0.9, 1);
+	}
+	25% {
+		background: rgba(0, 255, 255, 1);
+		transform: scale3d(1, 1, 1);
+	}
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
 }
 
 .lane canvas {

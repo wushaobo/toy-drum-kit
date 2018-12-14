@@ -9,6 +9,7 @@ class DrumButton extends Component {
         this.onDrumHit = props.onDrumHit;
 
         this.strike = this.strike.bind(this);
+        this._buttonId = `drumButton${this.drum.key}`
     }
 
     componentDidMount() {
@@ -30,14 +31,28 @@ class DrumButton extends Component {
     }
 
     strike() {
+        this._applyStrikeEffect();
         this.onDrumHit(this.drum.key);
+    }
+
+    _applyStrikeEffect() {
+        const element = document.getElementById(this._buttonId);
+
+        element.classList.add('highlight');
+        const eventHandler = () => {
+            element.classList.remove('highlight');
+            element.removeEventListener("animationend", eventHandler);
+        };
+        element.addEventListener("animationend", eventHandler);
     }
 
     render() {
         return (
-            <div className='drum-button' onClick={this.strike}>
-                <div>{this.drum.drumSound}</div>
-                <div className='hot-key'>{this.drum.hotKey}</div>
+            <div id={this._buttonId} className='drum-button' onClick={this.strike}>
+                <div className="background">
+                    <div>{this.drum.drumSound}</div>
+                    <div className='hot-key'>{this.drum.hotKey}</div>
+                </div>
             </div>
         );
     }

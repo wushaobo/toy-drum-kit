@@ -10,7 +10,7 @@ class Visualization {
             context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
             context.fillStyle = rectangle.color;
             context.fill();
-            context.strokeStyle = 'white';
+            context.lineWidth = 0;
             context.stroke();
         });
     }
@@ -59,7 +59,7 @@ class Visualization {
         };
     }
 
-    visualizeHit(note, color, shapeHeight = 6) {
+    visualizeHit(note, color, shapeHeight = 4) {
         if (!this._canvasShapesMap[note]) {
             this._canvasShapesMap[note] = []
         }
