@@ -1,5 +1,6 @@
 import * as MidiConvert from 'midiconvert'
 import Tone from "tone";
+import {config} from "./config";
 
 
 const ACCEPTED_NOTES = [36, 40, 42, 45, 46, 48, 50, 51, 57];
@@ -37,7 +38,7 @@ class AutoBot {
 
         this._newTrack()
         const data = {"sequence": request.toArray()};
-        request.load(`http://127.0.0.1:8080/pong`, JSON.stringify(data), 'POST').then((response) => {
+        request.load(`${config.api_url}/hits`, JSON.stringify(data), 'POST').then((response) => {
             let removedDuplicate = response.slice(endTime / 2);
             const notes = removedDuplicate.tracks[2].notes;
 

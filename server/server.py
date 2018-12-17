@@ -1,3 +1,4 @@
+import os
 import tempfile
 from io import BytesIO
 
@@ -66,7 +67,7 @@ class BaseHandler(RequestHandler):
         self.finish()
 
 
-class PingHandler(BaseHandler):
+class HitHandler(BaseHandler):
 
     def post(self):
         body = tornado.escape.json_decode(self.request.body)
@@ -85,7 +86,7 @@ class PingHandler(BaseHandler):
 
 
 def _run_server(http_port, num_processes):
-    routes = [(r'/pong', PingHandler)]
+    routes = [(r'/hits', HitHandler)]
 
     app = Application(handlers=routes, autoreload=False)
     server = HTTPServer(app)
@@ -100,7 +101,7 @@ def _run_server(http_port, num_processes):
 
 
 if __name__ == '__main__':
-    HTTP_PORT = 8080
-    HTTP_PROCESS_COUNT = 4
+    _http_port = os.environ.get("HTTP_PORT", 8080)
+    _http_process_count = os.environ.get("HTTP_PROCESS_COUNT", 4)
 
-    _run_server(HTTP_PORT, HTTP_PROCESS_COUNT)
+    _run_server(_http_port, _http_process_count)
