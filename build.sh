@@ -4,31 +4,6 @@ set -e
 
 cd "$(dirname $0)"
 
-function push_tag_version () {
-    git_tag=$1
-
-    tag=wushaobo/drum-kit-frontend:${git_tag}
-    docker tag wushaobo/drum-kit-frontend ${tag}
-    echo docker push ${tag}
-
-    tag=wushaobo/drum-kit-backend:${git_tag}
-    docker tag wushaobo/drum-kit-backend ${tag}
-    echo docker push ${tag}
-}
-
-function push_latest_version () {
-    echo docker push wushaobo/drum-kit-frontend wushaobo/drum-kit-backend
-}
-
-function push_to_registry () {
-    if [ -z "${TRAVIS_TAG}" ]; then
-        push_latest_version
-    else
-        push_tag_version ${TRAVIS_TAG}
-    fi
-    docker rmi wushaobo/drum-kit-frontend wushaobo/drum-kit-backend
-}
-
 function build_frontend_image () {
     cd browser
     docker build --force-rm -t wushaobo/drum-kit-frontend .
@@ -43,7 +18,6 @@ function build_backend_image () {
 cmds=( \
 build-frontend \
 build-backend \
-push-to-registry \
 )
 
 function do_command () {
@@ -53,9 +27,6 @@ function do_command () {
             ;;
         build-backend)
             build_backend_image
-            ;;
-        push-to-registry)
-            push_to_registry
             ;;
         *)
             echo "Please select what you want to do:"
