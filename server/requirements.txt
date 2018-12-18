@@ -1,5 +1,4 @@
 magenta
-pyfluidsynth
 pretty_midi
 
 tornado

@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  backend:
+    image: wushaobo/drum-kit-backend
+    ports:
+      - "8080:80"
+
+  frontend:
+    image: wushaobo/drum-kit-frontend
+    environment:
+      - API_URL=http://10.66.66.66:8080
+    ports:
+      - "5000:80"

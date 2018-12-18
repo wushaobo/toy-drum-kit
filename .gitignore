@@ -3,7 +3,5 @@
 
 server/venv
 server/output
-server/lib
 __pycache__
 *.mid
-

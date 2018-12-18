@@ -36,8 +36,12 @@ class AutoBot {
         }
 
         this._newTrack()
+
+        let config_api_url = document.getElementById("apiUrl").getAttribute('api-url');
+        config_api_url = config_api_url === '###' ? "http://127.0.0.1:8080" : config_api_url;
+
         const data = {"sequence": request.toArray()};
-        request.load(`http://127.0.0.1:8080/pong`, JSON.stringify(data), 'POST').then((response) => {
+        request.load(`${config_api_url}/hits`, JSON.stringify(data), 'POST').then((response) => {
             let removedDuplicate = response.slice(endTime / 2);
             const notes = removedDuplicate.tracks[2].notes;
 
