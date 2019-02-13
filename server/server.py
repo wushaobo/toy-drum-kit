@@ -16,7 +16,7 @@ def _generate_sequence(input_sequence):
     rnn_model = _init_generator()
 
     num_steps = 60  # change this for shorter or longer sequences
-    temperature = 0.8  # the higher the temperature the more random the sequence.
+    temperature = 1.2  # the higher the temperature the more random the sequence.
 
     generator_options = _generator_options(input_sequence, num_steps, rnn_model, temperature)
     sequence = rnn_model.generate(input_sequence, generator_options)
